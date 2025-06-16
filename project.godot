@@ -1,0 +1,36 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="IdleFood"
+run/main_scene="uid://ctlscraa0qf6l"
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/manager/GameManager.cs"
+
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/window_width_override=480
+window/size/window_height_override=854
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="IdleFood"
+
+[rendering]
+
+renderer/rendering_method="mobile"

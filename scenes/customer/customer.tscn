@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bf86leofgvj03"]
+
+[ext_resource type="PackedScene" uid="uid://qobmch22njji" path="res://scenes/cashier/cashier.tscn" id="1_ktfjk"]
+[ext_resource type="Script" uid="uid://bnxwgpbl7hrv4" path="res://scripts/customer/Customer.cs" id="2_xss0h"]
+[ext_resource type="Texture2D" uid="uid://8j17h6fpf5gx" path="res://assets/sprites/UI/circle.png" id="3_k1bqq"]
+[ext_resource type="Texture2D" uid="uid://bnfyi31hig6gd" path="res://assets/sprites/UI/Coffee.png" id="4_6bdyt"]
+[ext_resource type="FontFile" uid="uid://c5unrqyxmjbm8" path="res://assets/fonts/font_score.ttf" id="5_jy5aj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lu5oa"]
+font = ExtResource("5_jy5aj")
+font_size = 35
+font_color = Color(0, 0, 0, 1)
+
+[node name="Customer" instance=ExtResource("1_ktfjk")]
+script = ExtResource("2_xss0h")
+
+[node name="Body" parent="Visuals" index="1"]
+unique_name_in_owner = true
+
+[node name="Face" parent="Visuals" index="2"]
+unique_name_in_owner = true
+
+[node name="HandLeft" parent="Visuals" index="3"]
+unique_name_in_owner = true
+
+[node name="HandRight" parent="Visuals" index="4"]
+unique_name_in_owner = true
+
+[node name="ItemBox" type="Control" parent="." index="2"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="ItemBox" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -97.0
+offset_top = -145.0
+offset_right = -97.0
+offset_bottom = -145.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_k1bqq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemIcon" type="TextureRect" parent="ItemBox/TextureRect" index="0"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(65, 65)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 17.0
+offset_right = 69.0
+offset_bottom = 82.0
+texture = ExtResource("4_6bdyt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemLabel" type="Label" parent="ItemBox/TextureRect" index="1"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 63.0
+offset_top = 38.0
+offset_right = 103.0
+offset_bottom = 87.0
+text = "3"
+label_settings = SubResource("LabelSettings_lu5oa")
+vertical_alignment = 1

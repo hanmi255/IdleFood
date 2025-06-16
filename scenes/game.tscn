@@ -1,0 +1,92 @@
+[gd_scene load_steps=16 format=3 uid="uid://ctlscraa0qf6l"]
+
+[ext_resource type="Texture2D" uid="uid://cq2dm0mluh3p0" path="res://assets/sprites/Background.png" id="1_iywne"]
+[ext_resource type="Texture2D" uid="uid://qiwmbw246pe2" path="res://assets/sprites/Counter.png" id="2_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bgb1gi7l3gqsf" path="res://assets/sprites/Counter_half.png" id="3_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://bnfyi31hig6gd" path="res://assets/sprites/UI/Coffee.png" id="4_gee14"]
+[ext_resource type="Texture2D" uid="uid://c4r7rrgwgi5dc" path="res://assets/sprites/UI/Burger.png" id="5_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://qobmch22njji" path="res://scenes/cashier/cashier.tscn" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://c32bojutphf1d" path="res://scripts/manager/CustomerManager.cs" id="7_u5sy4"]
+[ext_resource type="Resource" uid="uid://dx2vsgf5tvvg8" path="res://data/customer/customer_green.tres" id="8_dinhu"]
+[ext_resource type="Resource" uid="uid://bs3klvl5hk8v" path="res://data/customer/customer_pink.tres" id="9_kvuet"]
+[ext_resource type="Resource" uid="uid://cdoxas0db2jvr" path="res://data/customer/customer_purple.tres" id="10_trtic"]
+[ext_resource type="Resource" uid="uid://bum113src6otk" path="res://data/customer/customer_red.tres" id="11_ir15t"]
+[ext_resource type="Resource" uid="uid://ce6m1yn1nx70d" path="res://data/customer/customer_yellow.tres" id="12_ca42v"]
+[ext_resource type="PackedScene" uid="uid://bf86leofgvj03" path="res://scenes/customer/customer.tscn" id="13_kvuet"]
+[ext_resource type="Script" uid="uid://y85ci42vkerk" path="res://scripts/manager/CashierManager.cs" id="14_ir15t"]
+[ext_resource type="Script" uid="uid://ck1fxuf55fi7y" path="res://scripts/manager/CounterManager.cs" id="14_trtic"]
+
+[node name="Game" type="Node2D"]
+
+[node name="BG" type="Sprite2D" parent="."]
+texture = ExtResource("1_iywne")
+centered = false
+
+[node name="MainCounter" type="Sprite2D" parent="."]
+position = Vector2(537, 855)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_p57ef")
+
+[node name="CoffeeCounter" type="Sprite2D" parent="."]
+position = Vector2(417, 1382)
+scale = Vector2(0.8, 0.9)
+texture = ExtResource("3_u5sy4")
+
+[node name="CoffeeIcon" type="Sprite2D" parent="CoffeeCounter"]
+position = Vector2(-83.75, -43.3333)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("4_gee14")
+
+[node name="BurgerCounter" type="Sprite2D" parent="."]
+position = Vector2(657, 1382)
+scale = Vector2(0.8, 0.9)
+texture = ExtResource("3_u5sy4")
+
+[node name="BurgerIcon" type="Sprite2D" parent="BurgerCounter"]
+position = Vector2(-75, -37.7778)
+scale = Vector2(0.32, 0.32)
+texture = ExtResource("5_0tnpc")
+
+[node name="CustomerManager" type="Node" parent="." node_paths=PackedStringArray("spawnPositions")]
+unique_name_in_owner = true
+script = ExtResource("7_u5sy4")
+spawnPositions = [NodePath("TopSpawnPos"), NodePath("BottomSpawnPos")]
+customerSprites = Array[Object]([ExtResource("8_dinhu"), ExtResource("9_kvuet"), ExtResource("10_trtic"), ExtResource("11_ir15t"), ExtResource("12_ca42v")])
+customerScene = ExtResource("13_kvuet")
+
+[node name="SpawnTimer" type="Timer" parent="CustomerManager"]
+unique_name_in_owner = true
+wait_time = 4.0
+autostart = true
+
+[node name="TopSpawnPos" type="Marker2D" parent="CustomerManager"]
+position = Vector2(-98, 209)
+
+[node name="BottomSpawnPos" type="Marker2D" parent="CustomerManager"]
+position = Vector2(-98, 650)
+
+[node name="CounterManager" type="Node" parent="." node_paths=PackedStringArray("counterPositions")]
+unique_name_in_owner = true
+script = ExtResource("14_trtic")
+counterPositions = [NodePath("Pos_0"), NodePath("Pos_1"), NodePath("Pos_2"), NodePath("Pos_3")]
+
+[node name="Pos_0" type="Marker2D" parent="CounterManager"]
+position = Vector2(375, 763)
+
+[node name="Pos_1" type="Marker2D" parent="CounterManager"]
+position = Vector2(475, 763)
+
+[node name="Pos_2" type="Marker2D" parent="CounterManager"]
+position = Vector2(575, 763)
+
+[node name="Pos_3" type="Marker2D" parent="CounterManager"]
+position = Vector2(675, 763)
+
+[node name="CashierManager" type="Node" parent="." node_paths=PackedStringArray("spawnPos")]
+unique_name_in_owner = true
+script = ExtResource("14_ir15t")
+cashierScene = ExtResource("6_p57ef")
+spawnPos = NodePath("SpawnPos")
+
+[node name="SpawnPos" type="Marker2D" parent="CashierManager"]
+position = Vector2(545, 1129)
