@@ -28,6 +28,7 @@ unique_name_in_owner = true
 
 [node name="ItemBox" type="Control" parent="." index="2"]
 visible = false
+z_index = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 0

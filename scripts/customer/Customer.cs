@@ -2,7 +2,6 @@ using Godot;
 
 public partial class Customer : Node2D
 {
-    private GameManager _gameManager;
     private Sprite2D _body;
     private Sprite2D _face;
     private Sprite2D _handLeft;
@@ -11,18 +10,17 @@ public partial class Customer : Node2D
     private Control _itemBox;
     private TextureRect _itemIcon;
     private Label _itemLabel;
-    private ItemData _requestItem;
 
     private int _requestQuantity;
-    private int _currentOrderStatus;
-    private bool _waitingOrder = false;
 
+    public bool _waitingOrder = false;
     public bool beingServed = false;
+    public int currentOrderStatus;
+    public ItemData RequestItem { get; private set; }
     public Vector2 counterPos;
 
     public override void _Ready()
     {
-        _gameManager = GetNode<GameManager>("/root/GameManager");
         _body = GetNode<Sprite2D>("%Body");
         _face = GetNode<Sprite2D>("%Face");
         _handLeft = GetNode<Sprite2D>("%HandLeft");
@@ -33,6 +31,11 @@ public partial class Customer : Node2D
         _itemLabel = GetNode<Label>("%ItemLabel");
     }
 
+    public override void _Process(double delta)
+    {
+        _itemLabel.Text = currentOrderStatus.ToString();
+    }
+
     public void SetSprites(CustomerData data)
     {
         _body.Texture = data.Body;
@@ -41,11 +44,35 @@ public partial class Customer : Node2D
         _handRight.Texture = data.Hand;
     }
 
+    public void ReceiveOrder()
+    {
+        currentOrderStatus -= 1;
+        if (currentOrderStatus <= 0)
+            OrderCompleted();
+    }
+
+    private void OrderCompleted()
+    {
+        _itemBox.Hide();
+        _waitingOrder = false;
+        var counterTopPos = counterPos.Y - 130;
+
+        var tween = CreateTween();
+        tween.TweenProperty(this, "position", new Vector2(counterPos.X, counterTopPos), 1.0);
+        tween.TweenInterval(0.2);
+        tween.TweenProperty(this, "position", new Vector2(counterPos.X + 800, counterTopPos), 3.0);
+        tween.TweenInterval(0.2);
+        tween.Finished += () =>
+        {
+            GameManager.Instance.EmitSignal("OnCustomerOrderCompleted", this);
+        };
+    }
+
     public void InitItem(ItemData item, int quantity)
     {
-        _requestItem = item;
+        RequestItem = item;
         _requestQuantity = quantity;
-        _currentOrderStatus = quantity;
+        currentOrderStatus = quantity;
     }
 
     public void MoveToCounter()
@@ -61,7 +88,7 @@ public partial class Customer : Node2D
         {
             _animPlayer.Play("idle");
             _waitingOrder = true;
-            _gameManager.EmitSignal("OnCustomerRequested", this);
+            GameManager.Instance.EmitSignal("OnCustomerRequested", this);
         };
     }
 
@@ -73,7 +100,7 @@ public partial class Customer : Node2D
     public void ShowOrderUI()
     {
         _itemBox.Show();
-        _itemIcon.Texture = _requestItem.sprite;
+        _itemIcon.Texture = RequestItem.sprite;
         _itemLabel.Text = _requestQuantity.ToString();
     }
 }

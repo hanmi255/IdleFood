@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ciprjq7mmw0n5"]
+
+[ext_resource type="FontFile" uid="uid://bq8x7j8twvuoj" path="res://assets/fonts/bake_soda.otf" id="1_ucest"]
+
+[resource]
+font = ExtResource("1_ucest")
+font_size = 48
+font_color = Color(0, 0, 0, 1)

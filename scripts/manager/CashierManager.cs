@@ -8,17 +8,19 @@ public partial class CashierManager : Node
     [Export] public Marker2D spawnPos;
 
     private Array<Cashier> _cashierList = [];
+    private CounterManager _counterManager;
 
     public override void _Ready()
     {
-        GameManager gameManager = GetNode<GameManager>("/root/GameManager");
-        gameManager.OnCustomerRequested += OnCustomerRequested;
+        _counterManager = GetNode<CounterManager>("%CounterManager");
+        GameManager.Instance.OnCustomerRequested += OnCustomerRequested;
         AddCashier();
     }
 
     public void AddCashier()
     {
         var cashier = cashierScene.Instantiate<Cashier>();
+        cashier.OnOrderCompleted += OnOrderCompleted;
         AddChild(cashier);
         cashier.Position = spawnPos.Position;
         _cashierList.Add(cashier);
@@ -26,7 +28,7 @@ public partial class CashierManager : Node
 
     private async void OnCustomerRequested(Customer customer)
     {
-        var freeCashier = new Array<Cashier>(_cashierList.Where(c => c.currentCustomer == null));
+        var freeCashier = new Array<Cashier>(_cashierList.Where(c => c.CurrentCustomer == null));
         if (freeCashier.Count == 0)
             return;
 
@@ -34,7 +36,16 @@ public partial class CashierManager : Node
         if (randomCashier != null)
         {
             randomCashier.SetCustomer(customer);
-            await randomCashier.TakeOrderAsync();
+            await randomCashier.TakeOrder();
+        }
+    }
+
+    private async void OnOrderCompleted(Cashier cashier)
+    {
+        if (_counterManager.GetNextAvailableCustomer() is Customer customer)
+        {
+            cashier.SetCustomer(customer);
+            await cashier.TakeOrder();
         }
     }
 }

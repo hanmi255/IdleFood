@@ -3,6 +3,9 @@ using Godot;
 [GlobalClass]
 public partial class ItemData : Resource
 {
+
+    [Signal] public delegate void OnStarReachedEventHandler();
+
     public enum ItemType
     {
         Coffee,
@@ -28,5 +31,22 @@ public partial class ItemData : Resource
     [ExportCategory("Level")]
     [Export] public int maxLevel = 50;
 
-    private int _currentLevel = 0;
+    public int currentLevel = 0;
+
+    public void UpdateItem()
+    {
+        if (currentLevel >= maxLevel)
+            return;
+
+        currentLevel += 1;
+        upgradeCost = Mathf.Ceil(upgradeCost * upgradeMultiplier);
+        profit = Mathf.Ceil(profit * profitMultiplier);
+        if (currentLevel % 25 == 0)
+        {
+            cookTime = Mathf.Ceil(cookTime * cookTimeReducePercent);
+            upgradeCost *= 3;
+            profit *= 3;
+            EmitSignal("OnStarReached");
+        }
+    }
 }
