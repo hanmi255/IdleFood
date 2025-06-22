@@ -6,27 +6,12 @@ using Godot.Collections;
 /// </summary>
 public partial class CustomerManager : Node
 {
-    /// <summary>
-    /// 顾客生成位置标记点数组，定义各可能的生成点
-    /// </summary>
-    [Export] private Array<Marker2D> _spawnPositions;
-    /// <summary>
-    /// 顾客外观数据列表，用于随机分配顾客外观
-    /// </summary>
-    [Export] private Array<CustomerData> _customerSprites;
-    /// <summary>
-    /// 顾客场景预制体，用于动态生成顾客实例
-    /// </summary>
-    [Export] private PackedScene _customerScene;
+    [Export] private Array<Marker2D> _spawnPositions;       /// 顾客生成位置标记点数组，定义各可能的生成点
+    [Export] private Array<CustomerData> _customerSprites;  /// 顾客外观数据列表，用于随机分配顾客外观
+    [Export] private PackedScene _customerScene;            /// 顾客场景预制体，用于动态生成顾客实例
 
-    /// <summary>
-    /// 顾客生成定时器，控制生成间隔
-    /// </summary>
-    private Timer _timer;
-    /// <summary>
-    /// 柜台管理器引用，用于柜台分配和状态查询
-    /// </summary>
-    private CounterManager _counterManager;
+    private Timer _timer;                    /// 顾客生成定时器，控制生成间隔
+    private CounterManager _counterManager;  /// 柜台管理器引用，用于柜台分配和状态查询
 
     /// <summary>
     /// 节点初始化，连接信号和启动定时器

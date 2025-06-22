@@ -7,15 +7,9 @@ using Godot.Collections;
 /// </summary>
 public partial class CounterManager : Node
 {
-    /// <summary>
-    /// 柜台位置标记点数组，定义各柜台的坐标位置
-    /// </summary>
-    [Export] private Array<Marker2D> _counterPositions;
+    [Export] private Array<Marker2D> _counterPositions;  /// 柜台位置标记点数组，定义各柜台的坐标位置
 
-    /// <summary>
-    /// 柜台顾客映射表，记录各柜台当前服务的顾客
-    /// </summary>
-    private Dictionary<int, Customer> _counter = new()
+    private Dictionary<int, Customer> _counter = new()  /// 柜台顾客映射表，记录各柜台当前服务的顾客
     {
         { 0, null },
         { 1, null },
@@ -23,10 +17,7 @@ public partial class CounterManager : Node
         { 3, null }
     };
 
-    /// <summary>
-    /// 上一个分配的顾客索引，用于轮询分配算法
-    /// </summary>
-    private int _lastCustomerIndex = -1;
+    private int _lastCustomerIndex = -1;  /// 上一个分配的顾客索引，用于轮询分配算法
 
     /// <summary>
     /// 节点初始化，连接订单完成信号

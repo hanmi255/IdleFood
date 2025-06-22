@@ -10,10 +10,7 @@ public partial class CookBar : Control
     /// </summary>
     [Signal] public delegate void OnCookFinishedEventHandler();
 
-    /// <summary>
-    /// 进度条控件引用，用于显示烹饪进度
-    /// </summary>
-    private TextureProgressBar _cookProgressBar;
+    private TextureProgressBar _cookProgressBar;  /// 进度条控件引用，用于显示烹饪进度
 
     /// <summary>
     /// 节点初始化，获取进度条子节点

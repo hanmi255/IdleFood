@@ -5,64 +5,21 @@ using Godot;
 /// </summary>
 public partial class Customer : Node2D
 {
-    /// <summary>
-    /// 顾客身体精灵，用于显示身体动画
-    /// </summary>
-    private Sprite2D _body;
-    /// <summary>
-    /// 顾客面部精灵，用于显示表情动画
-    /// </summary>
-    private Sprite2D _face;
-    /// <summary>
-    /// 左手精灵，用于显示手势动画
-    /// </summary>
-    private Sprite2D _handLeft;
-    /// <summary>
-    /// 右手精灵，用于显示手势动画
-    /// </summary>
-    private Sprite2D _handRight;
-    /// <summary>
-    /// 动画播放器，控制顾客动画状态
-    /// </summary>
-    private AnimationPlayer _animPlayer;
-    /// <summary>
-    /// 物品显示容器，用于展示订单UI
-    /// </summary>
-    private Control _itemBox;
-    /// <summary>
-    /// 物品图标显示组件
-    /// </summary>
-    private TextureRect _itemIcon;
-    /// <summary>
-    /// 物品数量显示标签
-    /// </summary>
-    private Label _itemLabel;
+    private Sprite2D _face;                            /// 顾客面部精灵，用于显示表情动画
+    private Sprite2D _body;                            /// 顾客身体精灵，用于显示身体动画
+    private Sprite2D _handLeft;                        /// 左手精灵，用于显示手势动画
+    private Sprite2D _handRight;                       /// 右手精灵，用于显示手势动画
+    private AnimationPlayer _animPlayer;               /// 动画播放器，控制顾客动画状态
+    private Control _itemBox;                          /// 物品显示容器，用于展示订单UI
+    private TextureRect _itemIcon;                     /// 物品图标显示组件
+    private Label _itemLabel;                          /// 物品数量显示标签
+    private int _requestQuantity;                      /// 订单请求数量，初始化时设置
 
-    /// <summary>
-    /// 订单请求数量，初始化时设置
-    /// </summary>
-    private int _requestQuantity;
-
-    /// <summary>
-    /// 是否正在等待订单完成
-    /// </summary>
-    public bool _waitingOrder = false;
-    /// <summary>
-    /// 是否正在被服务
-    /// </summary>
-    public bool isBeingServed = false;
-    /// <summary>
-    /// 当前订单状态（剩余数量）
-    /// </summary>
-    public int currentOrderStatus;
-    /// <summary>
-    /// 当前请求的物品数据
-    /// </summary>
-    public ItemData RequestItem { get; private set; }
-    /// <summary>
-    /// 柜台位置坐标，用于移动目标
-    /// </summary>
-    public Vector2 counterPos;
+    public bool _waitingOrder = false;                 /// 是否正在等待订单完成
+    public bool isBeingServed = false;                 /// 是否正在被服务
+    public int currentOrderStatus;                     /// 当前订单状态（剩余数量）
+    public ItemData RequestItem { get; private set; }  /// 当前请求的物品数据
+    public Vector2 counterPos;                         /// 柜台位置坐标，用于移动目标
 
     /// <summary>
     /// 节点初始化，获取所有子节点引用
@@ -179,3 +136,4 @@ public partial class Customer : Node2D
         _itemLabel.Text = _requestQuantity.ToString();
     }
 }
+

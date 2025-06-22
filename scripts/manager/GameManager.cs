@@ -7,15 +7,6 @@ using Godot.Collections;
 public partial class GameManager : Node
 {
     /// <summary>
-    /// 咖啡物品数据，定义咖啡相关属性
-    /// </summary>
-    [Export] public ItemData _itemCoffee;
-    /// <summary>
-    /// 汉堡物品数据，定义汉堡相关属性
-    /// </summary>
-    [Export] public ItemData _itemBurger;
-
-    /// <summary>
     /// 顾客请求服务事件，当顾客需要服务时触发
     /// </summary>
     /// <param name="customer">发起请求的顾客实例</param>
@@ -30,28 +21,14 @@ public partial class GameManager : Node
     /// </summary>
     [Signal] public delegate void OnSpawnNewCashierEventHandler();
 
-    /// <summary>
-    /// 金币特效预制体，用于展示金币获取动画
-    /// </summary>
-    private readonly PackedScene COIN_VFX = GD.Load<PackedScene>("res://scenes/vfx/coin_vfx.tscn");
-    /// <summary>
-    /// 咖啡柜台世界坐标位置
-    /// </summary>
-    private readonly Vector2 COFFEE_COUNTER_POS = new(415, 1250);
-    /// <summary>
-    /// 汉堡柜台世界坐标位置
-    /// </summary>
-    private readonly Vector2 BURGER_COUNTER_POS = new(665, 1250);
+    [Export] public ItemData _itemCoffee;  /// 咖啡物品数据，定义咖啡相关属性
+    [Export] public ItemData _itemBurger;  /// 汉堡物品数据，定义汉堡相关属性
 
-    /// <summary>
-    /// 当前游戏金币总数
-    /// </summary>
-    public float currentCoins = 99999;
-
-    /// <summary>
-    /// 游戏管理器单例实例
-    /// </summary>
-    public static GameManager Instance { get; private set; }
+    private readonly PackedScene COIN_VFX = GD.Load<PackedScene>("res://scenes/vfx/coin_vfx.tscn");  /// 金币特效预制体，用于展示金币获取动画
+    private readonly Vector2 COFFEE_COUNTER_POS = new(415, 1250);                             /// 咖啡柜台世界坐标位置
+    private readonly Vector2 BURGER_COUNTER_POS = new(665, 1250);                             /// 汉堡柜台世界坐标位置
+    public float currentCoins = 99999;                                                                    /// 当前游戏金币总数
+    public static GameManager Instance { get; private set; }                                              /// 游戏管理器单例实例
 
     /// <summary>
     /// 节点初始化，创建单例并初始化金币数量
@@ -101,5 +78,33 @@ public partial class GameManager : Node
             ItemData.ItemType.Burger => BURGER_COUNTER_POS,
             _ => Vector2.Zero,
         };
+    }
+
+    /// <summary>
+    /// 格式化金币数量
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns>格式化后的字符串</returns>
+    public static string FormatCoins(float amount)
+    {
+        var suffixes = new Array { "", "K", "M", "B", "T", "Q" };
+        var index = 0;
+        var displayAmount = amount;
+        while (displayAmount >= 1000 && index < suffixes.Count - 1)
+        {
+            displayAmount /= 1000;
+            index++;
+        }
+        return RoundToOneDecimal(displayAmount).ToString() + suffixes[index];
+    }
+
+    /// <summary>
+    /// 将浮点数值四舍五入到小数点后一位
+    /// </summary>
+    /// <param name="value">需要四舍五入的原始数值</param>
+    /// <returns>保留一位小数的四舍五入结果</returns>
+    private static double RoundToOneDecimal(float value)
+    {
+        return Mathf.Floor(value * 10f + 0.5) / 10f;
     }
 }

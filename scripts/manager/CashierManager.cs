@@ -7,23 +7,11 @@ using Godot.Collections;
 /// </summary>
 public partial class CashierManager : Node
 {
-    /// <summary>
-    /// 收银员场景预制体，用于动态生成收银员实例
-    /// </summary>
-    [Export] private PackedScene _cashierScene;
-    /// <summary>
-    /// 生成位置标记点，确定收银员初始坐标
-    /// </summary>
-    [Export] private Marker2D _spawnPos;
+    [Export] private PackedScene _cashierScene;  /// 收银员场景预制体，用于动态生成收银员实例
+    [Export] private Marker2D _spawnPos;         /// 生成位置标记点，确定收银员初始坐标
 
-    /// <summary>
-    /// 收银员实例列表，存储当前所有活跃的收银员
-    /// </summary>
-    private Array<Cashier> _cashierList = [];
-    /// <summary>
-    /// 柜台管理器引用，用于获取待服务顾客
-    /// </summary>
-    private CounterManager _counterManager;
+    private Array<Cashier> _cashierList = [];  /// 收银员实例列表，存储当前所有活跃的收银员
+    private CounterManager _counterManager;    /// 柜台管理器引用，用于获取待服务顾客
 
     /// <summary>
     /// 节点初始化，连接信号和初始化第一个收银员

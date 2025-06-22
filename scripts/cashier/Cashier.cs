@@ -7,42 +7,19 @@ using Godot;
 public partial class Cashier : Node2D
 {
     /// <summary>
-    /// 移动速度属性，控制收银员移动速度
-    /// </summary>
-    [Export] private float _moveSpeed = 50.0f;
-
-    /// <summary>
     /// 订单完成事件，在订单成功交付后触发
     /// </summary>
     /// <param name="cashier">完成订单的收银员实例</param>
     [Signal] public delegate void OnOrderCompletedEventHandler(Cashier cashier);
 
-    /// <summary>
-    /// 动画播放器，用于控制收银员动画播放
-    /// </summary>
-    private AnimationPlayer _animationPlayer;
-    /// <summary>
-    /// 烹饪进度条，用于显示烹饪完成度
-    /// </summary>
-    private CookBar _cookBar;
+    [Export] private float _moveSpeed = 50.0f;             /// 移动速度属性，控制收银员移动速度
 
-    /// <summary>
-    /// 柜台坐标位置，用于收银员移动目标点
-    /// </summary>
-    private Vector2 _counterPos;
-    /// <summary>
-    /// 当前订单请求的商品数据
-    /// </summary>
-    private ItemData _itemRequest;
-    /// <summary>
-    /// 商品柜台坐标位置，用于收银员取货目标点
-    /// </summary>
-    private Vector2 _itemCounterPos;
-
-    /// <summary>
-    /// 当前正在服务的顾客实例
-    /// </summary>
-    public Customer CurrentCustomer { get; private set; }
+    private AnimationPlayer _animationPlayer;              /// 动画播放器，用于控制收银员动画播放
+    private CookBar _cookBar;                              /// 烹饪进度条，用于显示烹饪完成度
+    private Vector2 _counterPos;                           /// 柜台坐标位置，用于收银员移动目标点
+    private ItemData _itemRequest;                         /// 当前订单请求的商品数据
+    private Vector2 _itemCounterPos;                       /// 商品柜台坐标位置，用于收银员取货目标点
+    public Customer CurrentCustomer { get; private set; }  /// 当前正在服务的顾客实例
 
     /// <summary>
     /// 初始化节点，获取动画播放器和烹饪进度条节点

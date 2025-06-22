@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ctlscraa0qf6l"]
+[gd_scene load_steps=35 format=3 uid="uid://ctlscraa0qf6l"]
 
 [ext_resource type="Texture2D" uid="uid://cq2dm0mluh3p0" path="res://assets/sprites/Background.png" id="1_iywne"]
 [ext_resource type="Texture2D" uid="uid://qiwmbw246pe2" path="res://assets/sprites/Counter.png" id="2_p57ef"]
@@ -22,6 +22,7 @@
 [ext_resource type="FontFile" uid="uid://bq8x7j8twvuoj" path="res://assets/fonts/bake_soda.otf" id="20_5newe"]
 [ext_resource type="Texture2D" uid="uid://cx3m3ojp4ojgb" path="res://assets/sprites/Characters/face_a.png" id="21_5newe"]
 [ext_resource type="Texture2D" uid="uid://cnqfl0w5ja3nu" path="res://assets/sprites/UI/arrowUp.png" id="21_37s47"]
+[ext_resource type="Texture2D" uid="uid://cm8jcgg5qmvh" path="res://assets/sprites/UI/gear.png" id="23_bt5mj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37s47"]
 bg_color = Color(0.729412, 0.729412, 0.729412, 1)
@@ -53,6 +54,24 @@ font_size = 70
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bt5mj"]
 bg_color = Color(0.247059, 0.247059, 0.247059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pl11u"]
+bg_color = Color(0.227451, 0.227451, 0.227451, 1)
+border_width_left = 12
+border_width_top = 12
+border_width_right = 12
+border_width_bottom = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhx41"]
+font = ExtResource("20_5newe")
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_qnb83"]
+font = ExtResource("20_5newe")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sww3w"]
+bg_color = Color(0, 0.717647, 0.360784, 1)
 
 [node name="Game" type="Node2D"]
 
@@ -597,3 +616,113 @@ grow_horizontal = 0
 grow_vertical = 2
 icon = ExtResource("21_37s47")
 expand_icon = true
+
+[node name="OptionsButton" type="Button" parent="GameUI/BottomBar/Panel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -241.0
+offset_top = -50.0
+offset_right = -141.0
+offset_bottom = 50.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("23_bt5mj")
+expand_icon = true
+
+[node name="OptionsPanel" type="Control" parent="GameUI"]
+visible = false
+custom_minimum_size = Vector2(650, 450)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -225.0
+offset_right = 325.0
+offset_bottom = 225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="GameUI/OptionsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pl11u")
+
+[node name="Label" type="Label" parent="GameUI/OptionsPanel/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_top = 20.0
+offset_right = 108.0
+offset_bottom = 78.0
+grow_horizontal = 2
+text = "OPTIONS"
+label_settings = SubResource("LabelSettings_bhx41")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUI/OptionsPanel/Panel"]
+custom_minimum_size = Vector2(550, 180)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.0
+offset_top = -74.0
+offset_right = 275.0
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/OptionsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameUI/OptionsPanel/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "MUSIC"
+label_settings = SubResource("LabelSettings_qnb83")
+
+[node name="MusicHSlider" type="HSlider" parent="GameUI/OptionsPanel/Panel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_sww3w")
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameUI/OptionsPanel/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameUI/OptionsPanel/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "SFX"
+label_settings = SubResource("LabelSettings_qnb83")
+
+[node name="SFXHSlider" type="HSlider" parent="GameUI/OptionsPanel/Panel/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 1
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_sww3w")
+max_value = 1.0
+step = 0.01
+value = 0.5

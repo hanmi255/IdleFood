@@ -7,24 +7,11 @@ using Godot.Collections;
 /// </summary>
 public partial class SoundManager : Node
 {
-    /// <summary>
-    /// 音频播放器数组，用于管理多个音频播放通道
-    /// </summary>
-    [Export] private Array<AudioStreamPlayer> _streamPlayers;
+    [Export] private Array<AudioStreamPlayer> _streamPlayers;  /// 音频播放器数组，用于管理多个音频播放通道
 
-    /// <summary>
-    /// 音效管理器单例实例
-    /// </summary>
-    public static SoundManager Instance { get; private set; }
-
-    /// <summary>
-    /// 金币收集音效资源
-    /// </summary>
-    private static readonly AudioStream COINS = ResourceLoader.Load<AudioStream>("res://assets/sound/coins.wav");
-    /// <summary>
-    /// 普通音效资源（用于UI等）
-    /// </summary>
-    private static readonly AudioStream NORMAL_SFX = ResourceLoader.Load<AudioStream>("res://assets/sound/normal-sfx.mp3");
+    private static readonly AudioStream COINS = ResourceLoader.Load<AudioStream>("res://assets/sound/coins.wav");            /// 金币收集音效资源
+    private static readonly AudioStream NORMAL_SFX = ResourceLoader.Load<AudioStream>("res://assets/sound/normal-sfx.mp3");  /// 普通音效资源（用于UI等）
+    public static SoundManager Instance { get; private set; }  /// 音效管理器单例实例
 
     /// <summary>
     /// 节点初始化，创建单例并初始化音频资源

@@ -20,59 +20,26 @@ public partial class ItemData : Resource
         Burger
     }
 
-    /// <summary>
-    /// 物品唯一标识符
-    /// </summary>
-    [Export] public string id;
-    /// <summary>
-    /// 物品类型，定义物品的基础分类
-    /// </summary>
-    [Export] public ItemType type;
-    /// <summary>
-    /// 物品显示用的纹理资源
-    /// </summary>
-    [Export] public Texture2D sprite;
+    [Export] public string id;                              /// 物品唯一标识符
+    [Export] public ItemType type;                          /// 物品类型，定义物品的基础分类
+    [Export] public Texture2D sprite;                       /// 物品显示用的纹理资源
 
-    /// <summary>
-    /// 烹饪时间参数，单位秒
-    /// </summary>
     [ExportGroup("Cook")]
-    [Export] public float cookTime = 10.0f;
-    /// <summary>
-    /// 烹饪时间减少百分比，用于升级计算
-    /// </summary>
-    [Export] private float _cookTimeReducePercent = 0.50f;
+    [Export] public float cookTime = 10.0f;                 /// 烹饪时间参数，单位秒
+    [Export] private float _cookTimeReducePercent = 0.50f;  /// 烹饪时间减少百分比，用于升级计算
 
-    /// <summary>
-    /// 升级基础成本
-    /// </summary>
     [ExportGroup("Upgrade")]
-    [Export] public float upgradeCost = 3.0f;
-    /// <summary>
-    /// 升级成本乘数，控制升级成本增长曲线
-    /// </summary>
-    [Export] private float _upgradeMultiplier = 1.3f;
+    [Export] public float upgradeCost = 3.0f;               /// 升级基础成本
+    [Export] private float _upgradeMultiplier = 1.3f;       /// 升级成本乘数，控制升级成本增长曲线
 
-    /// <summary>
-    /// 基础利润值
-    /// </summary>
     [ExportGroup("Profit")]
-    [Export] public float profit = 4.0f;
-    /// <summary>
-    /// 利润乘数，控制利润增长曲线
-    /// </summary>
-    [Export] private float _profitMultiplier = 1.2f;
+    [Export] public float profit = 4.0f;                    /// 基础利润值
+    [Export] private float _profitMultiplier = 1.2f;        /// 利润乘数，控制利润增长曲线
 
-    /// <summary>
-    /// 最大等级限制
-    /// </summary>
     [ExportCategory("Level")]
-    [Export] private int _maxLevel = 50;
+    [Export] private int _maxLevel = 50;                    /// 最大等级限制
 
-    /// <summary>
-    /// 当前物品等级
-    /// </summary>
-    public int currentLevel = 0;
+    public int currentLevel = 0;                            /// 当前物品等级
 
     /// <summary>
     /// 执行物品升级逻辑，更新所有相关参数

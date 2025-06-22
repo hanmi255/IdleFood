@@ -5,47 +5,16 @@ using Godot;
 /// </summary>
 public partial class UpgradePanel : Control
 {
-    /// <summary>
-    /// 等级显示标签
-    /// </summary>
-    private Label _level;
-    /// <summary>
-    /// 物品名称显示标签
-    /// </summary>
-    private Label _itemName;
-    /// <summary>
-    /// 星级图标容器，用于显示升级星级
-    /// </summary>
-    private HBoxContainer _starHBox;
-    /// <summary>
-    /// 升级进度条，显示升级进度百分比
-    /// </summary>
-    private ProgressBar _progressBar;
-    /// <summary>
-    /// 利润显示标签
-    /// </summary>
-    private Label _profit;
-    /// <summary>
-    /// 烹饪时间显示标签
-    /// </summary>
-    private Label _cookTime;
-    /// <summary>
-    /// 升级按钮实例
-    /// </summary>
-    private Button _upgradeButton;
-    /// <summary>
-    /// 关联的物品数据引用
-    /// </summary>
-    private ItemData _itemRef;
-
-    /// <summary>
-    /// 当前升级等级（0-25）
-    /// </summary>
-    private int _currentLevel;
-    /// <summary>
-    /// 当前星级数量，初始为-1
-    /// </summary>
-    private int _currentStars = -1;
+    private Label _level;              /// 等级显示标签
+    private Label _itemName;           /// 物品名称显示标签
+    private HBoxContainer _starHBox;   /// 星级图标容器，用于显示升级星级
+    private ProgressBar _progressBar;  /// 升级进度条，显示升级进度百分比
+    private Label _profit;             /// 利润显示标签
+    private Label _cookTime;           /// 烹饪时间显示标签
+    private Button _upgradeButton;     /// 升级按钮
+    private ItemData _itemRef;         /// 关联的物品数据引用
+    private int _currentLevel;         /// 当前升级等级（0-25）
+    private int _currentStars = -1;    /// 当前星级数量，初始为-1
 
     /// <summary>
     /// 节点初始化，获取子节点引用并绑定事件
@@ -89,9 +58,9 @@ public partial class UpgradePanel : Control
     private void UpdateStars()
     {
         _level.Text = $"Lv.{_itemRef.currentLevel}";
-        _profit.Text = _itemRef.profit.ToString();
-        _cookTime.Text = _itemRef.cookTime.ToString();
-        _upgradeButton.Text = _itemRef.upgradeCost.ToString();
+        _profit.Text = GameManager.FormatCoins(_itemRef.profit);
+        _cookTime.Text = GameManager.FormatCoins(_itemRef.cookTime);
+        _upgradeButton.Text = GameManager.FormatCoins(_itemRef.upgradeCost);
     }
 
     /// <summary>
