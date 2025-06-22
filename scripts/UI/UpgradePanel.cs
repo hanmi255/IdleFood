@@ -1,19 +1,55 @@
 using Godot;
 
+/// <summary>
+/// 升级面板类，负责显示和管理物品升级相关信息
+/// </summary>
 public partial class UpgradePanel : Control
 {
+    /// <summary>
+    /// 等级显示标签
+    /// </summary>
     private Label _level;
+    /// <summary>
+    /// 物品名称显示标签
+    /// </summary>
     private Label _itemName;
+    /// <summary>
+    /// 星级图标容器，用于显示升级星级
+    /// </summary>
     private HBoxContainer _starHBox;
+    /// <summary>
+    /// 升级进度条，显示升级进度百分比
+    /// </summary>
     private ProgressBar _progressBar;
+    /// <summary>
+    /// 利润显示标签
+    /// </summary>
     private Label _profit;
+    /// <summary>
+    /// 烹饪时间显示标签
+    /// </summary>
     private Label _cookTime;
+    /// <summary>
+    /// 升级按钮实例
+    /// </summary>
     private Button _upgradeButton;
+    /// <summary>
+    /// 关联的物品数据引用
+    /// </summary>
     private ItemData _itemRef;
 
+    /// <summary>
+    /// 当前升级等级（0-25）
+    /// </summary>
     private int _currentLevel;
+    /// <summary>
+    /// 当前星级数量，初始为-1
+    /// </summary>
     private int _currentStars = -1;
 
+    /// <summary>
+    /// 节点初始化，获取子节点引用并绑定事件
+    /// </summary>
     public override void _Ready()
     {
         _level = GetNode<Label>("%Level");
@@ -26,11 +62,18 @@ public partial class UpgradePanel : Control
         _upgradeButton.Pressed += OnUpgradeButtonPressed;
     }
 
+    /// <summary>
+    /// 每帧更新，同步升级进度显示
+    /// </summary>
     public override void _Process(double delta)
     {
         _progressBar.Value = _currentLevel / 25.0;
     }
 
+    /// <summary>
+    /// 初始化升级面板
+    /// </summary>
+    /// <param name="item">要关联的物品数据</param>
     public void InitUpgradePanel(ItemData item)
     {
         _itemRef = item;
@@ -40,6 +83,9 @@ public partial class UpgradePanel : Control
         _itemRef.OnStarReached += OnStarReached;
     }
 
+    /// <summary>
+    /// 更新所有UI元素显示当前状态
+    /// </summary>
     private void UpdateStars()
     {
         _level.Text = $"Lv.{_itemRef.currentLevel}";
@@ -48,6 +94,9 @@ public partial class UpgradePanel : Control
         _upgradeButton.Text = _itemRef.upgradeCost.ToString();
     }
 
+    /// <summary>
+    /// 处理星级提升事件
+    /// </summary>
     private void OnStarReached()
     {
         _currentLevel = 0;
@@ -57,6 +106,9 @@ public partial class UpgradePanel : Control
         star.Modulate = new Color(255, 255, 255);
     }
 
+    /// <summary>
+    /// 处理升级按钮点击事件
+    /// </summary>
     private void OnUpgradeButtonPressed()
     {
         SoundManager.Instance.PlayUI();
